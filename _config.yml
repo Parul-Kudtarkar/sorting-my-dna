@@ -1,2 +1,3 @@
 baseurl: /sorting-my-dna
 exclude: ['README.md']
+theme: jekyll-theme-cayman
