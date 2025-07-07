@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parul Kudtarkar - Senior Bioinformatician</title>
+    <style>
+        :root {
+            --background: #F9F9F9;
+            --foreground: #FFFFFF;
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868B;
+            --border: #E5E5EA;
+            --accent-blue: #0071E3;
+            --accent-gold: #D6BFAE;
+            --accent-silver: #A2AAAD;
+            --accent-midnight: #1D1D1F;
+            --link-hover: #005bb5;
+            --shadow: rgba(0, 0, 0, 0.06);
+        }
+
+        [data-theme="dark"] {
+            --background: #000000;
+            --foreground: #1D1D1F;
+            --text-primary: #F5F5F7;
+            --text-secondary: #A1A1A6;
+            --border: #424245;
+            --accent-blue: #0A84FF;
+            --shadow: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(249, 249, 249, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            transition: background-color 0.3s ease;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-blue);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Mobile menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        /* Page content */
+        .page {
+            display: none;
+            padding-top: 100px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 0;
+        }
+
+        .hero-profile {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .hero-headshot {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-silver) 0%, var(--accent-gold) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+            box-shadow: 0 10px 25px var(--shadow);
+            flex-shrink: 0;
+        }
+
+        .hero-intro {
+            flex: 1;
+        }
+
+        .hero-intro h1 {
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .hero-tagline {
+            font-size: 24px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            background: var(--foreground);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .social-link:hover {
+            color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .hero-description {
+            max-width: 800px;
+        }
+
+        .hero-description p {
+            font-size: 21px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            color: var(--text-secondary);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 50px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        /* Work Experience */
+        .work-item {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--foreground);
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px var(--shadow);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .work-logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-silver) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .work-content {
+            flex: 1;
+        }
+
+        .work-item h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .work-dates {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .work-item p {
+            font-size: 17px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Education */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .education-item {
+            background: var(--foreground);
+            padding: 30px;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px var(--shadow);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .education-logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-midnight) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+            flex-shrink: 0;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .education-content {
+            flex: 1;
+        }
+
+        .education-item h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .education-item h4 {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .education-item p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Reviewing */
+        .reviewing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .reviewing-card {
+            background: var(--foreground);
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .reviewing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .reviewing-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .reviewing-card p {
+            font-size: 17px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Publications Page */
+        .publications-hero {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .cover-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px var(--shadow);
+        }
+
+        .publications-section {
+            margin-bottom: 80px;
+        }
+
+        .publications-section h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: var(--text-primary);
+        }
+
+        .publication-item {
+            padding: 30px;
+            border-bottom: 1px solid var(--border);
+            background: var(--foreground);
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .publication-item:last-child {
+            border-bottom: none;
+        }
+
+        .publication-item h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .publication-authors {
+            font-size: 17px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .publication-journal {
+            font-size: 17px;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Art Page */
+        .art-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+
+        .art-intro h2 {
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+
+        .art-intro p {
+            font-size: 21px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .exhibitions {
+            margin-bottom: 80px;
+        }
+
+        .exhibitions h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: var(--text-primary);
+        }
+
+        .exhibition-item {
+            font-size: 19px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: var(--foreground);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 17px;
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--foreground);
+            border-top: 1px solid var(--border);
+            padding: 60px 0 40px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .footer-text a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            color: var(--link-hover);
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-socials .social-link {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero-profile {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .hero-intro h1 {
+                font-size: 36px;
+            }
+
+            .hero-tagline {
+                font-size: 20px;
+            }
+
+            .hero-description p {
+                font-size: 19px;
+            }
+
+            .hero-headshot {
+                width: 120px;
+                height: 120px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reviewing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">Parul Kudtarkar</a>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="publications">Publications</a></li>
+                <li><a href="#" class="nav-link" data-page="art">Art</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">🌙</button></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div class="page active" id="home">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-profile">
+                    <div class="hero-headshot">Professional Headshot</div>
+                    <div class="hero-intro">
+                        <h1>Parul Kudtarkar</h1>
+                        <div class="hero-tagline">Senior Bioinformatician using AI and machine learning to advance human health.</div>
+                        <div class="hero-links">
+                            <a href="https://linkedin.com/in/parul" class="social-link" title="LinkedIn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                            </a>
+                            <a href="https://scholar.google.com/citations?user=parul" class="social-link" title="Google Scholar">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/>
+                                </svg>
+                            </a>
+                            <a href="https://instagram.com/parul" class="social-link" title="Instagram">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-description">
+                    <p>With over 20 years of experience spanning biomedical engineering, research, and data science, I lead two major initiatives at UC San Diego: PanKbase, a $12.5M NIH-funded project to build the first integrated pancreas knowledgebase, and the Accelerating Medicines Partnership in Common Metabolic Diseases, a global effort to transform how we understand and treat metabolic disorders.</p>
+                    <p>With an undergraduate degree in biomedical engineering and a graduate degree in bioinformatics, I bring a systems-level perspective, from circuit boards and hospital instrumentation early in my career to developing AI and machine learning tools for single-cell genomics today. My professional journey through Harvard, Caltech, and UCSD reflects a lifelong mission to harness technology and data to improve human life.</p>
+                    <p>I regularly engage with stakeholders, patients, and professionals from diverse backgrounds through conferences, collaborative meetings, and real-world conversations, bringing empathy, context, and lived experience into my scientific work. I believe this human connection is essential in translating research into real impact.</p>
+                    <p>Outside work, I'm a runner, traveler, painter, wildlife advocate, and passionate home cook.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Experience -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Work Experience</h2>
+                <div class="work-item">
+                    <div class="work-logo">CMD</div>
+                    <div class="work-content">
+                        <h3>Common Metabolic Diseases</h3>
+                        <div class="work-dates">June 2017 – Present</div>
+                        <p>I have spearheaded the development of The Common Metabolic Diseases Genome Atlas, an extensive bioinformatic and software platform that links thousands of genomic datasets to uncover the origins of metabolic diseases and accelerate drug discovery.</p>
+                    </div>
+                </div>
+                <div class="work-item">
+                    <div class="work-logo">PKB</div>
+                    <div class="work-content">
+                        <h3>PanKbase</h3>
+                        <div class="work-dates">February 2024 – Present</div>
+                        <p>Architected PanKbase, a key component of a $12.5M NIH-funded project, building a comprehensive data library to support diabetes research.</p>
+                    </div>
+                </div>
+                <div class="work-item">
+                    <div class="work-logo">ECH</div>
+                    <div class="work-content">
+                        <h3>Echinobase</h3>
+                        <div class="work-dates">January 2011 – June 2017</div>
+                        <p>Created a software platform and performed bioinformatics analyses to explore gene regulation and environmental impacts on evolution.</p>
+                    </div>
+                </div>
+                <div class="work-item">
+                    <div class="work-logo">CLD</div>
+                    <div class="work-content">
+                        <h3>Cloud Computing for Comparative Genomics</h3>
+                        <div class="work-dates">January 2008 – December 2010</div>
+                        <p>Enhanced reciprocal smallest-distance algorithm for cloud platforms, cutting computational costs by 40%, pioneering the first cloud-based comparative genomics system.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Education</h2>
+                <div class="education-grid">
+                    <div class="education-item">
+                        <div class="education-logo">NEU</div>
+                        <div class="education-content">
+                            <h3>Master of Science, Bioinformatics</h3>
+                            <h4>Northeastern University, USA</h4>
+                            <p><strong>Courses:</strong> Biochemistry, Molecular Biology, Programming, Database Management, Proteomics, Imaging, Ethics</p>
+                            <p><strong>Internship:</strong> Intelligent Medical Devices, Cambridge, MA</p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-logo">MUM</div>
+                        <div class="education-content">
+                            <h3>Bachelor of Engineering, Biomedical Engineering</h3>
+                            <h4>University of Mumbai, India</h4>
+                            <p><strong>Courses:</strong> Medical Instrumentation, Anatomy, Embedded Systems, Hospital Management</p>
+                            <p><strong>Experience:</strong> Jaslok Hospital and Research Center</p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-logo">UCSD</div>
+                        <div class="education-content">
+                            <h3>MBA Certification</h3>
+                            <h4>Rady School of Management, UC San Diego</h4>
+                            <p><strong>Courses:</strong> Business Strategy, Innovation, Venture Creation, Leadership</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviewing Experience -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Reviewing Experience</h2>
+                <div class="reviewing-grid">
+                    <div class="reviewing-card">
+                        <h3>Editorial Board</h3>
+                        <p>Database: The Journal of Biological Databases and Curation</p>
+                    </div>
+                    <div class="reviewing-card">
+                        <h3>Journals Reviewed For</h3>
+                        <p>American Journal of Human Genetics, Bioinformatics, Evolutionary Bioinformatics, BMC Bioinformatics, PLOS Computational Biology, Faculty of 1000</p>
+                    </div>
+                    <div class="reviewing-card">
+                        <h3>Conference Jury</h3>
+                        <p>Intel International Science and Engineering Fair (Computational Biology and Bioinformatics category)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Publications Page -->
+    <div class="page" id="publications">
+        <div class="container">
+            <div class="publications-hero">
+                <div class="cover-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 400px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">Cell Metabolism Cover Image</div>
+                <p style="font-size: 19px; color: var(--text-secondary); margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">The Cell Metabolism cover image that accompanies the article illustrates how the T2DKP integrates multiple types of genetic and genomic data to provide insights that can be the building blocks for new therapeutics.</p>
+            </div>
+
+            <div class="publications-section">
+                <h2>Peer-Reviewed Publications</h2>
+                <div class="publication-item">
+                    <h3>Single cell regulatory architecture of human pancreatic islets suggests sex differences in β cell function and the pathogenesis of type 2 diabetes</h3>
+                    <div class="publication-authors">Qadir, Mirza Muhammad Fahd, Ruth M Elgamal, Keijing Song, and Parul Kudtarkar</div>
+                    <div class="publication-journal">bioRxiv (2024)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>Cardiovascular disease knowledge portal</h3>
+                    <div class="publication-authors">Costanzo, Maria C, Carolina Roselli, MacKenzie Brandes, and Parul Kudtarkar</div>
+                    <div class="publication-journal">Circulation: Genomic and Precision Medicine (2023)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>The Type 2 Diabetes Knowledge Portal</h3>
+                    <div class="publication-authors">Costanzo, Maria C, Marcin von Grotthuss, Jeffrey Massung, and Parul Kudtarkar</div>
+                    <div class="publication-journal">Cell Metabolism (2023)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>Leveraging type 1 diabetes human genetic and genomic data</h3>
+                    <div class="publication-authors">Kudtarkar, Parul, Maria Costanzo, and Ying Sun</div>
+                    <div class="publication-journal">PLOS Biology (2023)</div>
+                </div>
+            </div>
+
+            <div class="publications-section">
+                <h2>Invited Talks</h2>
+                <div class="publication-item">
+                    <h3>Single Cell Maps and Analysis Tools in CMDGA</h3>
+                    <div class="publication-authors">Kudtarkar, Parul, K. Gaulton</div>
+                    <div class="publication-journal">AMP CMD Parliament Meeting (2024)</div>
+                </div>
+            </div>
+
+            <div class="publications-section">
+                <h2>Poster Presentations</h2>
+                <div class="publication-item">
+                    <h3>The Type 1 Diabetes Knowledge Portal</h3>
+                    <div class="publication-authors">Costanzo MC, Kudtarkar, Parul, Sun Y, et al.</div>
+                    <div class="publication-journal">American Diabetes Association (2022)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Art Page -->
+    <div class="page" id="art">
+        <div class="container">
+            <div class="art-intro">
+                <h2>Artworks</h2>
+                <p>Through my artwork, I aim to transform analytical thinking into creative expression. Drawing inspiration from my extensive travels, most of my paintings are inspired by the places I have visited. As an aspiring painter, I draw inspiration from art guide books, incorporating their images and techniques into my artwork. This approach enables me to give life to my own distinct interpretation and style, despite being a novice in the field of painting.</p>
+            </div>
+
+            <div class="exhibitions">
+                <h2>Exhibitions</h2>
+                <div class="exhibition-item">• Swiss Riviera – Armory Center for the Arts (2018)</div>
+                <div class="exhibition-item">• California Wine – Caltech Art Gallery (2019)</div>
+                <div class="exhibition-item">• Grecian Dreams – Caltech Art Gallery (2020)</div>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">Artwork 1</div>
+                <div class="gallery-item">Artwork 2</div>
+                <div class="gallery-item">Artwork 3</div>
+                <div class="gallery-item">Artwork 4</div>
+                <div class="gallery-item">Artwork 5</div>
+                <div class="gallery-item">Artwork 6</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    © 2025 Parul Kudtarkar | <a href="https://sortingmydna.com">sortingmydna.com</a> | All rights reserved
+                </div>
+                <div class="footer-socials">
+                    <a href="https://linkedin.com/in/parul" class="social-link" title="LinkedIn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=parul" class="social-link" title="Google Scholar">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/parul" class="social-link" title="Instagram">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple page navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            const themeToggle = document.getElementById('theme-toggle');
+
+            // Page navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and pages
+                    navLinks.forEach(nl => nl.classList.remove('active'));
+                    pages.forEach(page => page.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding page
+                    const targetPage = this.getAttribute('data-page');
+                    document.getElementById(targetPage).classList.add('active');
+                });
+            });
+
+            // Theme toggle
+            themeToggle.addEventListener('click', function() {
+                const body = document.body;
+                const isDark = body.getAttribute('data-theme') === 'dark';
+                
+                if (isDark) {
+                    body.removeAttribute('data-theme');
+                    themeToggle.textContent = '🌙';
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    themeToggle.textContent = '☀️';
+                }
+            });
+
+            // Smooth scrolling for internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
