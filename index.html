@@ -251,17 +251,20 @@
         .work-logo {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-silver) 100%);
+            background: var(--foreground);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
             flex-shrink: 0;
-            text-align: center;
-            line-height: 1.2;
+            padding: 8px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .work-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .work-content {
