@@ -187,12 +187,109 @@
             display: block;
         }
 
-        /* Hero Section */
+        /* Hero Section with Animated Background */
         .hero {
             min-height: 80vh;
             display: flex;
             align-items: center;
             padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated DNA Helix Background */
+        .dna-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        [data-theme="dark"] .dna-background {
+            opacity: 0.20;
+        }
+
+        .dna-strand {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                var(--accent-blue) 20%,
+                var(--accent-gold) 50%,
+                var(--accent-blue) 80%,
+                transparent 100%
+            );
+            animation: dnaFloat 8s ease-in-out infinite;
+        }
+
+        .dna-strand:nth-child(1) {
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .dna-strand:nth-child(2) {
+            left: 40%;
+            animation-delay: -2s;
+        }
+
+        .dna-strand:nth-child(3) {
+            right: 30%;
+            animation-delay: -4s;
+        }
+
+        .dna-strand:nth-child(4) {
+            right: 10%;
+            animation-delay: -6s;
+        }
+
+        .dna-base {
+            position: absolute;
+            width: 8px;
+            height: 2px;
+            background: var(--accent-silver);
+            animation: dnaRotate 6s linear infinite;
+        }
+
+        @keyframes dnaFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-20px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(20px) rotate(240deg);
+            }
+        }
+
+        @keyframes dnaRotate {
+            0% {
+                transform: translateX(-15px) rotate(0deg);
+            }
+            25% {
+                transform: translateX(15px) rotate(90deg);
+            }
+            50% {
+                transform: translateX(-15px) rotate(180deg);
+            }
+            75% {
+                transform: translateX(15px) rotate(270deg);
+            }
+            100% {
+                transform: translateX(-15px) rotate(360deg);
+            }
+        }
+
+        /* Hero Content */
+        .hero .container {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-profile {
@@ -229,11 +326,90 @@
             color: var(--text-primary);
         }
 
+        /* Typewriter Animation for Tagline with Vibrant Animated Gradient */
         .hero-tagline {
             font-size: 24px;
-            color: var(--text-secondary);
             margin-bottom: 20px;
             line-height: 1.3;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid #00D4FF;
+            white-space: nowrap;
+            background: linear-gradient(
+                45deg,
+                #00D4FF,
+                #FF0080,
+                #7C4DFF,
+                #00E676,
+                #FF6B00,
+                #E91E63,
+                #2196F3,
+                #00D4FF
+            );
+            background-size: 400% 400%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+            animation: 
+                typing 3.5s steps(70, end) 0.5s both,
+                blink-caret 1s step-end infinite 0.5s,
+                vibrantGradient 3s ease-in-out infinite;
+        }
+
+        /* Fallback for browsers that don't support background-clip: text */
+        @supports not (-webkit-background-clip: text) {
+            .typewriter {
+                background: none;
+                -webkit-text-fill-color: initial;
+                color: var(--accent-blue);
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+                border-right-color: #00D4FF;
+            }
+            to {
+                width: 100%;
+                border-right-color: #00D4FF;
+            }
+        }
+
+        @keyframes blink-caret {
+            from, to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: #00D4FF;
+            }
+        }
+
+        @keyframes vibrantGradient {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 100% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            75% {
+                background-position: 0% 100%;
+            }
+        }
+
+        /* Stop cursor blinking after animation completes */
+        .typewriter.completed {
+            border-right: none;
+            animation: vibrantGradient 3s ease-in-out infinite;
         }
 
         .hero-links {
@@ -620,6 +796,7 @@
 
             .hero-tagline {
                 font-size: 20px;
+                min-height: 50px;
             }
 
             .hero-description p {
@@ -661,6 +838,36 @@
                 flex-direction: column;
                 text-align: center;
             }
+
+            /* Reduce DNA animation on mobile for performance */
+            .dna-background {
+                opacity: 0.10;
+            }
+
+            .dna-strand:nth-child(3),
+            .dna-strand:nth-child(4) {
+                display: none;
+            }
+        }
+
+        /* Optimize animations for reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .typewriter {
+                animation: none;
+                border-right: none;
+                white-space: normal;
+                background: none;
+                -webkit-text-fill-color: initial;
+                color: var(--accent-blue);
+            }
+
+            .dna-strand {
+                animation: none;
+            }
+
+            .dna-base {
+                animation: none;
+            }
         }
     </style>
 </head>
@@ -693,12 +900,50 @@
     <div class="page active" id="home">
         <!-- Hero Section -->
         <section class="hero">
+            <!-- Animated DNA Background -->
+            <div class="dna-background">
+                <div class="dna-strand">
+                    <div class="dna-base" style="top: 10%;"></div>
+                    <div class="dna-base" style="top: 25%;"></div>
+                    <div class="dna-base" style="top: 40%;"></div>
+                    <div class="dna-base" style="top: 55%;"></div>
+                    <div class="dna-base" style="top: 70%;"></div>
+                    <div class="dna-base" style="top: 85%;"></div>
+                </div>
+                <div class="dna-strand">
+                    <div class="dna-base" style="top: 15%;"></div>
+                    <div class="dna-base" style="top: 30%;"></div>
+                    <div class="dna-base" style="top: 45%;"></div>
+                    <div class="dna-base" style="top: 60%;"></div>
+                    <div class="dna-base" style="top: 75%;"></div>
+                    <div class="dna-base" style="top: 90%;"></div>
+                </div>
+                <div class="dna-strand">
+                    <div class="dna-base" style="top: 5%;"></div>
+                    <div class="dna-base" style="top: 20%;"></div>
+                    <div class="dna-base" style="top: 35%;"></div>
+                    <div class="dna-base" style="top: 50%;"></div>
+                    <div class="dna-base" style="top: 65%;"></div>
+                    <div class="dna-base" style="top: 80%;"></div>
+                </div>
+                <div class="dna-strand">
+                    <div class="dna-base" style="top: 12%;"></div>
+                    <div class="dna-base" style="top: 27%;"></div>
+                    <div class="dna-base" style="top: 42%;"></div>
+                    <div class="dna-base" style="top: 57%;"></div>
+                    <div class="dna-base" style="top: 72%;"></div>
+                    <div class="dna-base" style="top: 87%;"></div>
+                </div>
+            </div>
+
             <div class="container">
                 <div class="hero-profile">
                     <div class="hero-headshot"><img src="images/headshot.jpg" alt="Parul Kudtarkar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" /></div>
                     <div class="hero-intro">
                         <h1>Parul Kudtarkar</h1>
-                        <div class="hero-tagline">Senior Bioinformatician using AI and machine learning to advance human health.</div>
+                        <div class="hero-tagline">
+                            <span class="typewriter" id="typewriter-text">Driving the next era of medicine through AI and genomics.</span>
+                        </div>
                         <div class="hero-links">
                             <a href="https://www.linkedin.com/in/parulkudtarkar" class="social-link" title="LinkedIn">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -720,10 +965,9 @@
                 </div>
                 
                 <div class="hero-description">
-                    <p>With over 20 years of experience spanning biomedical engineering, research, and data science, I lead two major initiatives at UC San Diego: PanKbase, a $12.5M NIH-funded project to build the first integrated pancreas knowledgebase, and the Accelerating Medicines Partnership in Common Metabolic Diseases, a global effort to transform how we understand and treat metabolic disorders.</p>
-                    <p>With an undergraduate degree in biomedical engineering and a graduate degree in bioinformatics, I bring a systems-level perspective, from circuit boards and hospital instrumentation early in my career to developing AI and machine learning tools for single-cell genomics today. My professional journey through Harvard, Caltech, and UCSD reflects a lifelong mission to harness technology and data to improve human life.</p>
-                    <p>I regularly engage with stakeholders, patients, and professionals from diverse backgrounds through conferences, collaborative meetings, and real-world conversations, bringing empathy, context, and lived experience into my scientific work. I believe this human connection is essential in translating research into real impact.</p>
-                    <p>Outside work, I'm a runner, traveler, painter, wildlife advocate, and passionate home cook.</p>
+                    <p>With over 20 years of experience in biomedical engineering, research, and data science, I lead two major initiatives at UC San Diego: PanKbase, a $12.5M NIH-funded pancreas knowledgebase, and the Accelerating Medicines Partnership in Common Metabolic Diseases, a global effort to transform metabolic health.</p>
+                    <p>Trained in biomedical engineering and bioinformatics, my professional journey spans Harvard, Caltech, and UCSD, bridging hardware, cloud computing, AI, and single-cell genomics. I’m deeply technical, but I lead with empathy, building bridges across labs, clinicians, and communities to make sure research doesn’t just stay in journals; it changes lives.</p>
+                    <p>Outside of science, I am a runner, traveler, painter, wildlife advocate, and passionate home cook.</p>
                 </div>
             </div>
         </section>
@@ -835,44 +1079,142 @@
             <div class="publications-section">
                 <h2>Peer-Reviewed Publications</h2>
                 <div class="publication-item">
-                    <h3>Single cell regulatory architecture of human pancreatic islets suggests sex differences in β cell function and the pathogenesis of type 2 diabetes</h3>
-                    <div class="publication-authors">Qadir, Mirza Muhammad Fahd, Ruth M Elgamal, Keijing Song, and Parul Kudtarkar</div>
+                    <h3>An integrated map of cell type-specific gene expression in pancreatic islets</h3>
+                    <div class="publication-authors">Elgamal, Ruth; <strong>Kudtarkar, Parul</strong>; Melton, Rebecca; Mummey, Hannah; Benaglio, Paola; Okino, Mei-Lin; Gaulton, Kyle J </div>
+                    <div class="publication-journal">Diabetes (2023)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>Leveraging type 1 diabetes human genetic and genomic data in the T1D Knowledge Portal</h3>
+                    <div class="publication-authors"><strong>Kudtarkar, Parul</strong>; Costanzo, Maria; Sun, Ying; Jang, Dongkeun; Koesterer, Ryan; Mychaleckyj, Josyf C; Nayak, Uma; Onengut-Gumuscu, Suna; Rich, Stephen S; Flannick, Jason A</div>
+                    <div class="publication-journal">PLoS Biology (2023)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>Echinobase: an expanding resource for echinoderm genomic information</h3>
+                    <div class="publication-authors"><strong>Kudtarkar, Parul</strong>; Cameron, R. Andrew; </div>
+                    <div class="publication-journal">Database: The Journal of Biological Databases and Curation (2017)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>Do echinoderm genomes measure up?</h3>
+                    <div class="publication-authors">Cameron, R Andrew; <strong>Kudtarkar, Parul</strong>; Gordon, Susan M; Worley, Kim C; Gibbs, Richard A</div>
+                    <div class="publication-journal">Marine genomics (2015)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>Cost-effective cloud computing: a case study using the comparative genomics tool, roundup</h3>
+                    <div class="publication-authors"><strong>Kudtarkar, Parul</strong>; DeLuca, Todd F; Fusaro, Vincent A; Tonellato, Peter J; Wall, Dennis P; </div>
+                    <div class="publication-journal">Evolutionary Bioinformatics (2010)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>Cloud computing for comparative genomics</h3>
+                    <div class="publication-authors">  Wall, Dennis P; <strong>Kudtarkar, Parul</strong>; Fusaro, Vincent A; Pivovarov, Rimma; Patil, Prasad; Tonellato, Peter J</div>
+                    <div class="publication-journal">BMC bioinformatics (2010)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>Genetic association and machine learning improves discovery and prediction of type 1 diabetes</h3>
+                    <div class="publication-authors">McGrail, Carolyn; <strong>Kudtarkar, Parul</strong>; <em>et al.</em> </div>
+                    <div class="publication-journal">medRxiv (2024)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>Single cell multiome profiling of pancreatic islets reveals physiological changes in cell type-specific regulation associated with diabetes risk</h3>
+                    <div class="publication-authors">Mummey, Hannah M; <strong>Kudtarkar, Parul</strong>; <em>et al.</em> </div>
                     <div class="publication-journal">bioRxiv (2024)</div>
                 </div>
                 <div class="publication-item">
-                    <h3>Cardiovascular disease knowledge portal</h3>
-                    <div class="publication-authors">Costanzo, Maria C, Carolina Roselli, MacKenzie Brandes, and Parul Kudtarkar</div>
+                    <h3>Sex-specific regulatory architecture of pancreatic islets from subjects with and without type 2 diabetes</h3>
+                    <div class="publication-authors">Qadir, Mirza Muhammad Fahd; <strong>Kudtarkar, Parul</strong>; <em>et al.</em> </div>
+                    <div class="publication-journal">The EMBO Journal (2024)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>The Type 2 Diabetes Knowledge Portal: An open access genetic resource dedicated to type 2 diabetes and related traits</h3>
+                    <div class="publication-authors">Costanzo, Maria C; <strong>Kudtarkar, Parul</strong>; <em>et al.</em> </div>
+                    <div class="publication-journal">Cell metabolism (2023)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>Cardiovascular disease knowledge portal: a community resource for cardiovascular disease research</h3>
+                    <div class="publication-authors">Costanzo, Maria C; <strong>Kudtarkar, Parul</strong>; <em>et al.</em> </div>
                     <div class="publication-journal">Circulation: Genomic and Precision Medicine (2023)</div>
                 </div>
                 <div class="publication-item">
-                    <h3>The Type 2 Diabetes Knowledge Portal</h3>
-                    <div class="publication-authors">Costanzo, Maria C, Marcin von Grotthuss, Jeffrey Massung, and Parul Kudtarkar</div>
-                    <div class="publication-journal">Cell Metabolism (2023)</div>
+                    <h3>Single-cell chromatin accessibility identifies pancreatic islet cell type– and state-specific regulatory programs of diabetes risk.</h3>
+                    <div class="publication-authors">Chiou, Joshua; <strong>Kudtarkar, Parul</strong>; <em>et al.</em> </div>
+                    <div class="publication-journal">Nature Genetics (2021)</div>
                 </div>
                 <div class="publication-item">
-                    <h3>Leveraging type 1 diabetes human genetic and genomic data</h3>
-                    <div class="publication-authors">Kudtarkar, Parul, Maria Costanzo, and Ying Sun</div>
-                    <div class="publication-journal">PLOS Biology (2023)</div>
+                    <h3>Single-cell multiomic profiling of human lungs reveals cell-type-specific and age-dynamic control of SARS-CoV2 host genes</h3>
+                    <div class="publication-authors">Wang, Allen; <strong>Kudtarkar, Parul</strong>; <em>et al.</em> </div>
+                    <div class="publication-journal">Elife (2020)</div>
+                </div>
+                <div class="publication-item">
+                    <h3>Developmental effector gene regulation: Multiplexed strategies for functional analysis</h3>
+                    <div class="publication-authors">Wang, Lijun; <strong>Kudtarkar, Parul</strong>; <em>et al.</em> </div>
+                    <div class="publication-journal">Developmental biology (2019)</div>
                 </div>
             </div>
 
             <div class="publications-section">
                 <h2>Invited Talks</h2>
-                <div class="publication-item">
-                    <h3>Single Cell Maps and Analysis Tools in CMDGA</h3>
-                    <div class="publication-authors">Kudtarkar, Parul, K. Gaulton</div>
-                    <div class="publication-journal">AMP CMD Parliament Meeting (2024)</div>
-                </div>
-            </div>
+<div class="publication-item">
+    <h3>AMP CMD Portals</h3>
+    <div class="publication-authors">Kudtarkar, Parul</div>
+    <div class="publication-journal">AMP CMD Parliament Meeting (2025)</div>
+</div>
 
-            <div class="publications-section">
-                <h2>Poster Presentations</h2>
-                <div class="publication-item">
-                    <h3>The Type 1 Diabetes Knowledge Portal</h3>
-                    <div class="publication-authors">Costanzo MC, Kudtarkar, Parul, Sun Y, et al.</div>
-                    <div class="publication-journal">American Diabetes Association (2022)</div>
-                </div>
+<div class="publication-item">
+    <h3>Single Cell Maps and Analysis Tools in CMDGA</h3>
+    <div class="publication-authors">Kudtarkar, Parul</div>
+    <div class="publication-journal">AMP CMD Parliament Meeting (2024)</div>
+</div>
+
+<div class="publication-item">
+    <h3>Gene Expression Integration and Representation in CMDGA/KP</h3>
+    <div class="publication-authors">Kudtarkar, Parul</div>
+    <div class="publication-journal">AMP CMD Parliament Meeting (2023)</div>
+</div>
+
+<div class="publication-item">
+    <h3>Representing Genomic Perturbation Studies in CMDGA</h3>
+    <div class="publication-authors">Kudtarkar, Parul</div>
+    <div class="publication-journal">AMP CMD Leadership Conference (2022)</div>
+</div>
+
+<div class="publication-item">
+    <h3>Introducing the Common Metabolic Diseases Genome Atlas</h3>
+    <div class="publication-authors">Kudtarkar, Parul</div>
+    <div class="publication-journal">AMP T2DKP Webinar Series (2021)</div>
+</div>
+
+<div class="publication-item">
+    <h3>Diabetes Epigenome Atlas and T2D Knowledge Portal: Connected and Complementary Resources</h3>
+    <div class="publication-authors">Kudtarkar, Parul</div>
+    <div class="publication-journal">AMP T2DKP Webinar Series (2019)</div>
+</div>
             </div>
+<div>
+  <h2>Poster Presentations</h2>
+
+  <div class="publication-item">
+      <h3>The Type 1 Diabetes Knowledge Portal: An Open-Access Resource for Insights into the Genetic and Genomic Basis of Type 1 Diabetes</h3>
+      <div class="publication-authors">Costanzo MC; <strong>Kudtarkar, Parul</strong>; Sun Y; Jang D; Koesterer R; Mychaleckyj J; Nayak U; Onengut-Gumuscu S; Rich SS; Flannick J; Gaulton KJ; Burtt NP. </div>
+      <div class="publication-journal">American Diabetes Association (2022)</div>
+  </div>
+
+  <div class="publication-item">
+      <h3>Type 2 Diabetes Epigenome Data Repository and Resource</h3>
+      <div class="publication-authors">Y. Sun;  <strong>Kudtarkar, Parul</strong>; S. Morabito; K Gaulton. </div>
+      <div class="publication-journal">American Society of Human Genetics Annual Meeting (2017)</div>
+  </div>
+
+  <div class="publication-item">
+      <h3>Proteomics Approach to Study Neuronal Regeneration Events of the Sequenced Sea Star Patiria miniata</h3>
+      <div class="publication-authors">C Franco; <strong>Kudtarkar, Parul</strong>; <em>et al.</em></div>
+      <div class="publication-journal">The FASEB Journal (2014)</div>
+  </div>
+
+  <div class="publication-item">
+      <h3>Infusion Controller</h3>
+      <div class="publication-authors">Ahmed T.; <strong>Kudtarkar, Parul</strong>; <em>et al.</em></div>
+      <div class="publication-journal">International Conference on Biological and Medical Physics (2005)</div>
+  </div>
+</div>
         </div>
     </div>
 
@@ -940,6 +1282,14 @@
             const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
             const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
             const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const typewriterText = document.getElementById('typewriter-text');
+
+            // Typewriter animation completion handler
+            setTimeout(() => {
+                if (typewriterText) {
+                    typewriterText.classList.add('completed');
+                }
+            }, 5000); // Complete after typing animation finishes
 
             // Mobile menu toggle functionality
             mobileMenuToggle.addEventListener('click', function() {
@@ -1021,12 +1371,12 @@
                 
                 if (isDark) {
                     body.removeAttribute('data-theme');
-                    themeToggle.textContent = '🌙';
-                    mobileThemeToggle.textContent = '🌙';
+                    themeToggle.textContent = '◐';
+                    mobileThemeToggle.textContent = '◐';
                 } else {
                     body.setAttribute('data-theme', 'dark');
-                    themeToggle.textContent = '☀️';
-                    mobileThemeToggle.textContent = '☀️';
+                    themeToggle.textContent = '◑';
+                    mobileThemeToggle.textContent = '◑';
                 }
             }
 
@@ -1046,3 +1396,4 @@
     </script>
 </body>
 </html>
+                
