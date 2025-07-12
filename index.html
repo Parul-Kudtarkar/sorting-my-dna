@@ -17,6 +17,9 @@
             --accent-midnight: #1D1D1F;
             --link-hover: #005bb5;
             --shadow: rgba(0, 0, 0, 0.06);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: rgba(0, 0, 0, 0.1);
         }
 
         [data-theme="dark"] {
@@ -27,6 +30,9 @@
             --border: #424245;
             --accent-blue: #0A84FF;
             --shadow: rgba(255, 255, 255, 0.06);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: rgba(0, 0, 0, 0.3);
         }
 
         * {
@@ -43,7 +49,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
-            background-color: var(--background);
+            background: var(--background);
             overflow-x: hidden;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
@@ -54,21 +60,97 @@
             padding: 0 15px;
         }
 
-        /* Navigation */
+        /* Liquid Glass Base Class */
+        .liquid-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .liquid-glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .liquid-glass:hover::before {
+            opacity: 1;
+        }
+
+        /* Liquid Glass with Dynamic Highlights */
+        .liquid-glass-dynamic {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .liquid-glass-dynamic::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                rgba(255, 255, 255, 0.1) 60deg,
+                rgba(255, 255, 255, 0.2) 120deg,
+                transparent 180deg,
+                transparent 360deg
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.6s ease;
+            pointer-events: none;
+        }
+
+        .liquid-glass-dynamic:hover::before {
+            opacity: 1;
+            transform: rotate(180deg);
+        }
+
+        .liquid-glass-dynamic:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 32px var(--glass-shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Navigation with Liquid Glass */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(249, 249, 249, 0.8);
-            backdrop-filter: blur(20px);
             z-index: 1000;
             padding: 20px 0;
-            border-bottom: 1px solid var(--border);
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        [data-theme="dark"] nav {
+        .nav-glass {
+            background: rgba(249, 249, 249, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        [data-theme="dark"] .nav-glass {
             background: rgba(0, 0, 0, 0.8);
         }
 
@@ -83,6 +165,7 @@
             font-weight: 600;
             color: var(--text-primary);
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         .nav-links {
@@ -96,40 +179,61 @@
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 400;
-            transition: color 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
             color: var(--accent-blue);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
             cursor: pointer;
             color: var(--text-primary);
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .theme-toggle:hover {
             color: var(--accent-blue);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px var(--glass-shadow);
         }
 
         /* Mobile menu */
         .mobile-menu-toggle {
             display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
             cursor: pointer;
             color: var(--text-primary);
             z-index: 1001;
             position: relative;
+            transition: all 0.3s ease;
         }
 
-        /* Mobile menu overlay */
         .mobile-menu-overlay {
             display: none;
             position: fixed;
@@ -137,7 +241,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: var(--foreground);
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
             z-index: 999;
             padding-top: 100px;
         }
@@ -159,26 +265,19 @@
             text-decoration: none;
             font-size: 20px;
             font-weight: 400;
-            transition: color 0.3s ease;
+            padding: 12px 24px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
         }
 
         .mobile-nav-links a:hover,
         .mobile-nav-links a.active {
             color: var(--accent-blue);
-        }
-
-        .mobile-theme-toggle {
-            background: none;
-            border: none;
-            font-size: 32px;
-            cursor: pointer;
-            color: var(--text-primary);
-            transition: color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .mobile-theme-toggle:hover {
-            color: var(--accent-blue);
+            transform: translateY(-2px);
         }
 
         /* Page content */
@@ -195,37 +294,40 @@
             opacity: 1;
         }
 
-        /* Scroll to top button */
+        /* Scroll to top button with Liquid Glass */
         .scroll-to-top {
             position: fixed;
             bottom: 30px;
             right: 30px;
             width: 50px;
             height: 50px;
-            background: var(--accent-blue);
-            color: white;
-            border: none;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: var(--accent-blue);
+            border: 1px solid var(--glass-border);
             border-radius: 50%;
             cursor: pointer;
             font-size: 20px;
             display: none;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 20px var(--shadow);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 500;
         }
 
         .scroll-to-top:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px var(--shadow);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 8px 32px var(--glass-shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
         }
 
         .scroll-to-top.visible {
             display: flex;
         }
 
-        /* Hero Section with Animated Background */
+        /* Hero Section */
         .hero {
             min-height: 80vh;
             display: flex;
@@ -343,14 +445,47 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-silver) 0%, var(--accent-gold) 100%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid var(--glass-border);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 14px;
             color: var(--text-secondary);
-            box-shadow: 0 10px 25px var(--shadow);
+            box-shadow: 
+                0 10px 25px var(--glass-shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
             flex-shrink: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-headshot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: left 0.6s ease;
+        }
+
+        .hero-headshot:hover::before {
+            left: 100%;
+        }
+
+        .hero-headshot:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 15px 35px var(--glass-shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
         }
 
         .hero-intro {
@@ -461,22 +596,45 @@
         .social-link {
             width: 44px;
             height: 44px;
-            background: var(--foreground);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
             color: var(--text-secondary);
-            box-shadow: 0 2px 10px var(--shadow);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: left 0.5s ease;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
         }
 
         .social-link:hover {
             color: var(--accent-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px var(--shadow);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 
+                0 8px 25px var(--glass-shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
         }
 
         .hero-description {
@@ -505,32 +663,39 @@
             color: var(--text-primary);
         }
 
-        /* Work Experience */
+        /* Work Experience with Liquid Glass */
         .work-item {
             margin-bottom: 40px;
             padding: 30px;
-            background: var(--foreground);
             border-radius: 18px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 20px var(--shadow);
             display: flex;
             align-items: flex-start;
             gap: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .work-logo {
             width: 70px;
             height: 70px;
-            background: var(--foreground);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             padding: 8px;
-            flex-shrink: 0;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
+
+        .work-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px var(--glass-shadow);
+        }
+
         .work-logo img {
             width: 100%;
             height: 100%;
@@ -560,7 +725,7 @@
             color: var(--text-secondary);
         }
 
-        /* Education */
+        /* Education with Liquid Glass */
         .education-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -568,20 +733,21 @@
         }
 
         .education-item {
-            background: var(--foreground);
             padding: 30px;
             border-radius: 18px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 20px var(--shadow);
             display: flex;
             align-items: flex-start;
             gap: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .education-logo {
             width: 70px;
             height: 70px;
-            background: var(--foreground);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -589,7 +755,13 @@
             flex-shrink: 0;
             padding: 6px;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
+
+        .education-logo:hover {
+            transform: scale(1.05);
+        }
+
         .education-logo img {
             width: 100%;
             height: 100%;
@@ -619,7 +791,7 @@
             color: var(--text-secondary);
         }
 
-        /* Reviewing */
+        /* Reviewing with Liquid Glass */
         .reviewing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -627,17 +799,10 @@
         }
 
         .reviewing-card {
-            background: var(--foreground);
             padding: 25px;
             border-radius: 18px;
             text-align: center;
-            transition: transform 0.3s ease;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 20px var(--shadow);
-        }
-
-        .reviewing-card:hover {
-            transform: translateY(-5px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .reviewing-card h3 {
@@ -682,10 +847,9 @@
         .publication-item {
             padding: 30px;
             border-bottom: 1px solid var(--border);
-            background: var(--foreground);
             margin-bottom: 20px;
             border-radius: 12px;
-            box-shadow: 0 2px 10px var(--shadow);
+            transition: all 0.3s ease;
         }
 
         .publication-item:last-child {
@@ -757,33 +921,35 @@
 
         .gallery-item {
             aspect-ratio: 1;
-            background: var(--foreground);
             border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-secondary);
             font-size: 17px;
-            transition: transform 0.3s ease;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 20px var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
+            position: relative;
         }
+
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             border-radius: 18px;
+            transition: transform 0.3s ease;
         }
 
-        .gallery-item:hover {
+        .gallery-item:hover img {
             transform: scale(1.05);
         }
 
         /* Footer */
         footer {
-            background: var(--foreground);
-            border-top: 1px solid var(--border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
             padding: 60px 0 40px;
             margin-top: 80px;
         }
@@ -831,7 +997,9 @@
             }
 
             .mobile-menu-toggle {
-                display: block;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             .section-title {
                 font-size: 32px;
@@ -902,6 +1070,7 @@
                 font-size: 14px;
             }
         }
+
         /* Optimize animations for reduced motion preference */
         @media (prefers-reduced-motion: reduce) {
             html {
@@ -928,12 +1097,46 @@
             .dna-base {
                 animation: none;
             }
+
+            .liquid-glass-dynamic::before {
+                animation: none;
+            }
+
+            .hero-headshot::before {
+                animation: none;
+            }
+
+            .social-link::before {
+                animation: none;
+            }
+        }
+
+        /* Additional focus styles for better keyboard navigation */
+        .keyboard-nav *:focus {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 2px;
+        }
+
+        /* Smooth image loading */
+        img {
+            transition: opacity 0.3s ease;
+        }
+
+        img.loaded {
+            opacity: 1;
+        }
+
+        /* Enhanced scroll behavior for Safari */
+        @supports (-webkit-overflow-scrolling: touch) {
+            html {
+                -webkit-overflow-scrolling: touch;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
+    <nav class="nav-glass">
         <div class="container">
             <a href="#" class="logo">Parul Kudtarkar</a>
             <ul class="nav-links">
@@ -952,7 +1155,7 @@
             <a href="#" class="mobile-nav-link active" data-page="home">Home</a>
             <a href="#" class="mobile-nav-link" data-page="publications">Publications</a>
             <a href="#" class="mobile-nav-link" data-page="art">Art</a>
-            <button class="mobile-theme-toggle" id="mobile-theme-toggle">◐</button>
+            <button class="theme-toggle" id="mobile-theme-toggle">◐</button>
         </div>
     </div>
 
@@ -1039,7 +1242,7 @@
         <section class="section">
             <div class="container">
                 <h2 class="section-title">Work Experience</h2>
-                <div class="work-item">
+                <div class="work-item liquid-glass-dynamic">
                     <div class="work-logo"><img src="images/work/cmd.jpg" alt="cmd" /></div>
                     <div class="work-content">
                         <h3>Common Metabolic Diseases</h3>
@@ -1047,7 +1250,7 @@
                         <p>I have spearheaded the development of The Common Metabolic Diseases Genome Atlas, an extensive bioinformatic and software platform that links thousands of genomic datasets to uncover the origins of metabolic diseases and accelerate drug discovery.</p>
                     </div>
                 </div>
-                <div class="work-item">
+                <div class="work-item liquid-glass-dynamic">
                     <div class="work-logo"><img src="images/work/pankbase.png" alt="pankbase" /></div>
                     <div class="work-content">
                         <h3>PanKbase</h3>
@@ -1055,7 +1258,7 @@
                         <p>Architected PanKbase, a key component of a $12.5M NIH-funded project, building a comprehensive data library to support diabetes research.</p>
                     </div>
                 </div>
-                <div class="work-item">
+                <div class="work-item liquid-glass-dynamic">
                     <div class="work-logo"><img src="images/work/echinobase.png" alt="echinobase" /></div>
                     <div class="work-content">
                         <h3>Echinobase</h3>
@@ -1063,7 +1266,7 @@
                         <p>Created a software platform and performed bioinformatics analyses to explore gene regulation and environmental impacts on evolution.</p>
                     </div>
                 </div>
-                <div class="work-item">
+                <div class="work-item liquid-glass-dynamic">
                     <div class="work-logo"><img src="images/work/cloud.png" alt="cloud" /></div>
                     <div class="work-content">
                         <h3>Cloud Computing for Comparative Genomics</h3>
@@ -1079,7 +1282,7 @@
             <div class="container">
                 <h2 class="section-title">Education</h2>
                 <div class="education-grid">
-                    <div class="education-item">
+                    <div class="education-item liquid-glass-dynamic">
                         <div class="education-logo"><img src="images/education/neu.png" alt="neu" /></div>
                         <div class="education-content">
                             <h3>Master of Science, Bioinformatics</h3>
@@ -1088,7 +1291,7 @@
                             <p><strong>Internship:</strong> Intelligent Medical Devices, Cambridge, MA</p>
                         </div>
                     </div>
-                    <div class="education-item">
+                    <div class="education-item liquid-glass-dynamic">
                         <div class="education-logo"><img src="images/education/mu.png" alt="mu" /></div>
                         <div class="education-content">
                             <h3>Bachelor of Engineering, Biomedical Engineering</h3>
@@ -1097,7 +1300,7 @@
                             <p><strong>Experience:</strong> Jaslok Hospital and Research Center</p>
                         </div>
                     </div>
-                    <div class="education-item">
+                    <div class="education-item liquid-glass-dynamic">
                         <div class="education-logo"><img src="images/education/rady.png" alt="rady" /></div>
                         <div class="education-content">
                             <h3>MBA Certification</h3>
@@ -1114,15 +1317,15 @@
             <div class="container">
                 <h2 class="section-title">Reviewing Experience</h2>
                 <div class="reviewing-grid">
-                    <div class="reviewing-card">
+                    <div class="reviewing-card liquid-glass-dynamic">
                         <h3>Editorial Board</h3>
                         <p>Database: The Journal of Biological Databases and Curation</p>
                     </div>
-                    <div class="reviewing-card">
+                    <div class="reviewing-card liquid-glass-dynamic">
                         <h3>Journals Reviewed For</h3>
                         <p>American Journal of Human Genetics, Bioinformatics, Evolutionary Bioinformatics, BMC Bioinformatics, PLOS Computational Biology, Faculty of 1000</p>
                     </div>
-                    <div class="reviewing-card">
+                    <div class="reviewing-card liquid-glass-dynamic">
                         <h3>Conference Jury</h3>
                         <p>Intel International Science and Engineering Fair (Computational Biology and Bioinformatics category)</p>
                     </div>
@@ -1141,7 +1344,7 @@
 
             <div class="publications-section">
                 <h2>Peer-Reviewed Publications</h2>
-                <div class="publication-item">
+                <div class="publication-item liquid-glass">
                     <h3>An integrated map of cell type-specific gene expression in pancreatic islets</h3>
                     <div class="publication-authors">Elgamal, Ruth; <strong>Kudtarkar, Parul</strong>; Melton, Rebecca; Mummey, Hannah; Benaglio, Paola; Okino, Mei-Lin; Gaulton, Kyle J </div>
                     <div class="publication-journal">Diabetes (2023)</div><br>
@@ -1189,45 +1392,45 @@
 
             <div class="publications-section">
                 <h2>Invited Talks</h2>
-<div class="publication-item">
-    <h3>AMP CMD Portals</h3>
-    <div class="publication-authors">Kudtarkar, Parul</div>
-    <div class="publication-journal">AMP CMD Parliament Meeting (2025)</div><br>
-    <h3>Single Cell Maps and Analysis Tools in CMDGA</h3>
-    <div class="publication-authors">Kudtarkar, Parul</div>
-    <div class="publication-journal">AMP CMD Parliament Meeting (2024)</div><br>
-    <h3>Gene Expression Integration and Representation in CMDGA/KP</h3>
-    <div class="publication-authors">Kudtarkar, Parul</div>
-    <div class="publication-journal">AMP CMD Parliament Meeting (2023)</div><br>
-    <h3>Representing Genomic Perturbation Studies in CMDGA</h3>
-    <div class="publication-authors">Kudtarkar, Parul</div>
-    <div class="publication-journal">AMP CMD Leadership Conference (2022)</div><br>
-    <h3>Introducing the Common Metabolic Diseases Genome Atlas</h3>
-    <div class="publication-authors">Kudtarkar, Parul</div>
-    <div class="publication-journal">AMP T2DKP Webinar Series (2021)</div><br>
-    <h3>Diabetes Epigenome Atlas and T2D Knowledge Portal: Connected and Complementary Resources</h3>
-    <div class="publication-authors">Kudtarkar, Parul</div>
-    <div class="publication-journal">AMP T2DKP Webinar Series (2019)</div><br>
-</div>
+                <div class="publication-item liquid-glass">
+                    <h3>AMP CMD Portals</h3>
+                    <div class="publication-authors">Kudtarkar, Parul</div>
+                    <div class="publication-journal">AMP CMD Parliament Meeting (2025)</div><br>
+                    <h3>Single Cell Maps and Analysis Tools in CMDGA</h3>
+                    <div class="publication-authors">Kudtarkar, Parul</div>
+                    <div class="publication-journal">AMP CMD Parliament Meeting (2024)</div><br>
+                    <h3>Gene Expression Integration and Representation in CMDGA/KP</h3>
+                    <div class="publication-authors">Kudtarkar, Parul</div>
+                    <div class="publication-journal">AMP CMD Parliament Meeting (2023)</div><br>
+                    <h3>Representing Genomic Perturbation Studies in CMDGA</h3>
+                    <div class="publication-authors">Kudtarkar, Parul</div>
+                    <div class="publication-journal">AMP CMD Leadership Conference (2022)</div><br>
+                    <h3>Introducing the Common Metabolic Diseases Genome Atlas</h3>
+                    <div class="publication-authors">Kudtarkar, Parul</div>
+                    <div class="publication-journal">AMP T2DKP Webinar Series (2021)</div><br>
+                    <h3>Diabetes Epigenome Atlas and T2D Knowledge Portal: Connected and Complementary Resources</h3>
+                    <div class="publication-authors">Kudtarkar, Parul</div>
+                    <div class="publication-journal">AMP T2DKP Webinar Series (2019)</div><br>
+                </div>
             </div>
-<div>
-  <h2>Poster Presentations</h2>
 
-  <div class="publication-item">
-      <h3>The Type 1 Diabetes Knowledge Portal: An Open-Access Resource for Insights into the Genetic and Genomic Basis of Type 1 Diabetes</h3>
-      <div class="publication-authors">Costanzo MC; <strong>Kudtarkar, Parul</strong>; Sun Y; Jang D; Koesterer R; Mychaleckyj J; Nayak U; Onengut-Gumuscu S; Rich SS; Flannick J; Gaulton KJ; Burtt NP. </div>
-      <div class="publication-journal">American Diabetes Association (2022)</div><br>
-      <h3>Type 2 Diabetes Epigenome Data Repository and Resource</h3>
-      <div class="publication-authors">Y. Sun;  <strong>Kudtarkar, Parul</strong>; S. Morabito; K Gaulton. </div>
-      <div class="publication-journal">American Society of Human Genetics Annual Meeting (2017)</div><br>
-      <h3>Proteomics Approach to Study Neuronal Regeneration Events of the Sequenced Sea Star Patiria miniata</h3>
-      <div class="publication-authors">C Franco; <strong>Kudtarkar, Parul</strong>; <em>et al.</em></div>
-      <div class="publication-journal">The FASEB Journal (2014)</div><br>
-      <h3>Infusion Controller</h3>
-      <div class="publication-authors">Ahmed T.; <strong>Kudtarkar, Parul</strong>; <em>et al.</em></div>
-      <div class="publication-journal">International Conference on Biological and Medical Physics (2005)</div><br>
-  </div>
-</div>
+            <div class="publications-section">
+                <h2>Poster Presentations</h2>
+                <div class="publication-item liquid-glass">
+                    <h3>The Type 1 Diabetes Knowledge Portal: An Open-Access Resource for Insights into the Genetic and Genomic Basis of Type 1 Diabetes</h3>
+                    <div class="publication-authors">Costanzo MC; <strong>Kudtarkar, Parul</strong>; Sun Y; Jang D; Koesterer R; Mychaleckyj J; Nayak U; Onengut-Gumuscu S; Rich SS; Flannick J; Gaulton KJ; Burtt NP. </div>
+                    <div class="publication-journal">American Diabetes Association (2022)</div><br>
+                    <h3>Type 2 Diabetes Epigenome Data Repository and Resource</h3>
+                    <div class="publication-authors">Y. Sun;  <strong>Kudtarkar, Parul</strong>; S. Morabito; K Gaulton. </div>
+                    <div class="publication-journal">American Society of Human Genetics Annual Meeting (2017)</div><br>
+                    <h3>Proteomics Approach to Study Neuronal Regeneration Events of the Sequenced Sea Star Patiria miniata</h3>
+                    <div class="publication-authors">C Franco; <strong>Kudtarkar, Parul</strong>; <em>et al.</em></div>
+                    <div class="publication-journal">The FASEB Journal (2014)</div><br>
+                    <h3>Infusion Controller</h3>
+                    <div class="publication-authors">Ahmed T.; <strong>Kudtarkar, Parul</strong>; <em>et al.</em></div>
+                    <div class="publication-journal">International Conference on Biological and Medical Physics (2005)</div><br>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1247,11 +1450,11 @@
             </div>
 
             <div class="gallery-grid">
-                <div class="gallery-item"><img src="images/artworks/Swiss_Riveria.png" alt="Swiss_Riveria" /></div>
-                <div class="gallery-item"><img src="images/artworks/Grecian_Dreams.jpeg" alt="Grecian_Dreams" /></div>
-                <div class="gallery-item"><img src="images/artworks/California_wine.JPG" alt="California_wine" /></div>
-                <div class="gallery-item"><img src="images/artworks/Lavande_en_Provence.jpg" alt="lavender" /></div>
-                <div class="gallery-item"><img src="images/artworks/colors.jpg" alt="lavender" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/Swiss_Riveria.png" alt="Swiss_Riveria" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/Grecian_Dreams.jpeg" alt="Grecian_Dreams" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/California_wine.JPG" alt="California_wine" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/Lavande_en_Provence.jpg" alt="lavender" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/colors.jpg" alt="lavender" /></div>
             </div>
         </div>
     </div>
@@ -1476,31 +1679,23 @@
 
                 images.forEach(img => imageObserver.observe(img));
             }
+
+            // Liquid Glass interaction effects
+            const liquidGlassElements = document.querySelectorAll('.liquid-glass-dynamic');
+            
+            liquidGlassElements.forEach(element => {
+                element.addEventListener('mousemove', function(e) {
+                    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                        const rect = element.getBoundingClientRect();
+                        const x = ((e.clientX - rect.left) / rect.width) * 100;
+                        const y = ((e.clientY - rect.top) / rect.height) * 100;
+                        
+                        element.style.setProperty('--mouse-x', x + '%');
+                        element.style.setProperty('--mouse-y', y + '%');
+                    }
+                });
+            });
         });
     </script>
-
-    <style>
-        /* Additional focus styles for better keyboard navigation */
-        .keyboard-nav *:focus {
-            outline: 2px solid var(--accent-blue);
-            outline-offset: 2px;
-        }
-
-        /* Smooth image loading */
-        img {
-            transition: opacity 0.3s ease;
-        }
-
-        img.loaded {
-            opacity: 1;
-        }
-
-        /* Enhanced scroll behavior for Safari */
-        @supports (-webkit-overflow-scrolling: touch) {
-            html {
-                -webkit-overflow-scrolling: touch;
-            }
-        }
-    </style>
 </body>
 </html>
