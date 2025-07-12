@@ -35,6 +35,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
             line-height: 1.6;
@@ -181,10 +185,44 @@
         .page {
             display: none;
             padding-top: 100px;
+            min-height: 100vh;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
         }
 
         .page.active {
             display: block;
+            opacity: 1;
+        }
+
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: all 0.3s ease;
+            z-index: 500;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px var(--shadow);
+        }
+
+        .scroll-to-top.visible {
+            display: flex;
         }
 
         /* Hero Section with Animated Background */
@@ -835,6 +873,14 @@
             .dna-strand:nth-child(4) {
                 display: none;
             }
+
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
         }
         @media (max-width: 480px) {
             .hero-headshot {
@@ -858,6 +904,14 @@
         }
         /* Optimize animations for reduced motion preference */
         @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .page {
+                transition: none;
+            }
+
             .typewriter {
                 animation: none;
                 border-right: none;
@@ -901,6 +955,9 @@
             <button class="mobile-theme-toggle" id="mobile-theme-toggle">◐</button>
         </div>
     </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scroll-to-top">↑</button>
 
     <!-- Home Page -->
     <div class="page active" id="home">
@@ -972,7 +1029,7 @@
                 
                 <div class="hero-description">
                     <p>With over 20 years of experience in bioinformatics, research, and data science, I lead two major initiatives at UC San Diego: PanKbase, a $12.5M NIH-funded pancreas knowledgebase, and the Accelerating Medicines Partnership in Common Metabolic Diseases, a global effort to transform metabolic health.</p>
-                    <p>Trained in biomedical engineering and bioinformatics, my professional journey spans Harvard, Caltech, and UCSD, bridging hardware, cloud computing, AI, and large-scale biological data. I’m deeply technical, but I lead with empathy, building bridges across labs, clinicians, and communities to make sure research doesn’t just stay in journals; it changes lives.</p>
+                    <p>Trained in biomedical engineering and bioinformatics, my professional journey spans Harvard, Caltech, and UCSD, bridging hardware, cloud computing, AI, and large-scale biological data. I'm deeply technical, but I lead with empathy, building bridges across labs, clinicians, and communities to make sure research doesn't just stay in journals; it changes lives.</p>
                     <p>Outside of science, I enjoy running, traveling, painting, supporting wildlife conservation, and cooking.</p>
                 </div>
             </div>
@@ -1238,6 +1295,7 @@
             const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
             const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
             const typewriterText = document.getElementById('typewriter-text');
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
 
             // Typewriter animation completion handler
             setTimeout(() => {
@@ -1245,6 +1303,25 @@
                     typewriterText.classList.add('completed');
                 }
             }, 5000); // Complete after typing animation finishes
+
+            // Scroll to top functionality
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Show/hide scroll to top button
+            function toggleScrollButton() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            }
+
+            window.addEventListener('scroll', toggleScrollButton);
 
             // Mobile menu toggle functionality
             mobileMenuToggle.addEventListener('click', function() {
@@ -1294,6 +1371,15 @@
                 
                 // Show corresponding page
                 document.getElementById(targetPage).classList.add('active');
+                
+                // Scroll to top of page smoothly
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
+                // Hide scroll to top button when navigating
+                scrollToTopBtn.classList.remove('visible');
             }
 
             function updateActiveLinks(linkCollection, activeLink) {
@@ -1335,7 +1421,23 @@
                 }
             }
 
-            // Smooth scrolling for internal links
+            // Keyboard navigation support
+            document.addEventListener('keydown', function(e) {
+                // ESC key closes mobile menu
+                if (e.key === 'Escape' && mobileMenuOverlay.classList.contains('active')) {
+                    mobileMenuOverlay.classList.remove('active');
+                    mobileMenuToggle.innerHTML = '☰';
+                }
+                
+                // Ctrl/Cmd + Home goes to home page
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Home') {
+                    e.preventDefault();
+                    navigateToPage('home');
+                    document.querySelector('[data-page="home"]').classList.add('active');
+                }
+            });
+
+            // Smooth scrolling for any remaining internal links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -1347,8 +1449,58 @@
                     }
                 });
             });
+
+            // Improve accessibility - add focus styles for keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    document.body.classList.add('keyboard-nav');
+                }
+            });
+
+            document.addEventListener('mousedown', function() {
+                document.body.classList.remove('keyboard-nav');
+            });
+
+            // Performance optimization - lazy load images when they come into view
+            if ('IntersectionObserver' in window) {
+                const images = document.querySelectorAll('img[src]');
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.classList.add('loaded');
+                            observer.unobserve(img);
+                        }
+                    });
+                });
+
+                images.forEach(img => imageObserver.observe(img));
+            }
         });
     </script>
+
+    <style>
+        /* Additional focus styles for better keyboard navigation */
+        .keyboard-nav *:focus {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 2px;
+        }
+
+        /* Smooth image loading */
+        img {
+            transition: opacity 0.3s ease;
+        }
+
+        img.loaded {
+            opacity: 1;
+        }
+
+        /* Enhanced scroll behavior for Safari */
+        @supports (-webkit-overflow-scrolling: touch) {
+            html {
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+    </style>
 </body>
 </html>
-                
