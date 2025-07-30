@@ -880,7 +880,7 @@
 
         .cover-image {
             width: 100%;
-            max-width: 600px;
+            max-width: 400px;
             height: auto;
             border-radius: 18px;
             margin-bottom: 30px;
@@ -1115,6 +1115,13 @@
                 font-size: 18px;
             }
         }
+        
+        @media (max-width: 768px) {
+            .cover-image {
+                max-width: 350px;
+            }
+        }
+        
         @media (max-width: 480px) {
             .hero-headshot {
                 width: 80px;
@@ -1133,6 +1140,10 @@
             }
             .hero-description p {
                 font-size: 14px;
+            }
+            
+            .cover-image {
+                max-width: 300px;
             }
         }
 
