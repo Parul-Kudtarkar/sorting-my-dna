@@ -789,18 +789,18 @@
         }
 
         .education-logo {
-            width: 70px;
-            height: 70px;
+            width: 90px;
+            height: 90px;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            padding: 6px;
+            padding: 8px;
             overflow: hidden;
             transition: all 0.3s ease;
         }
@@ -812,6 +812,13 @@
         .education-logo img {
             width: 100%;
             height: 100%;
+            object-fit: contain;
+        }
+        
+        /* Special handling for Rady logo which is wide */
+        .education-logo img[alt*="Rady"] {
+            width: 90%;
+            height: 90%;
             object-fit: contain;
         }
 
@@ -1077,6 +1084,17 @@
             .education-item {
                 flex-direction: column;
                 text-align: center;
+            }
+            
+            .education-logo {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 15px;
+            }
+            
+            .education-logo img[alt*="Rady"] {
+                width: 85%;
+                height: 85%;
             }
 
             /* Reduce DNA animation on mobile for performance */
@@ -1348,7 +1366,7 @@
                         </div>
                     </div>
                     <div class="education-item liquid-glass-dynamic">
-                        <div class="education-logo"><img src="images/education/rady.png" alt="Rady School of Management logo" /></div>
+                        <div class="education-logo"><img src="images/education/rady.png" alt="UC San Diego Rady School of Management logo" /></div>
                         <div class="education-content">
                             <h3>MBA Certification</h3>
                             <h4>Rady School of Management, UC San Diego</h4>
@@ -1370,7 +1388,7 @@
                     </div>
                     <div class="reviewing-card liquid-glass-dynamic">
                         <h3>Journals Reviewed For</h3>
-                        <p>American Journal of Human Genetics, Bioinformatics, Evolutionary Bioinformatics, BMC Bioinformatics, PLOS Computational Biology, Faculty of 1000</p>
+                        <p>American Journal of Human Genetics, Bioinformatics, Evolutionary Bioinformatics, BMC Bioinformatics, PLOS Computational Biology, Journal of Endocrinology, Faculty of 1000</p>
                     </div>
                     <div class="reviewing-card liquid-glass-dynamic">
                         <h3>Conference Jury</h3>
@@ -1492,11 +1510,11 @@
             </div>
 
             <div class="gallery-grid">
-                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/Swiss_Riveria.png" alt="Swiss_Riveria" /></div>
-                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/Grecian_Dreams.jpeg" alt="Grecian_Dreams" /></div>
-                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/California_wine.JPG" alt="California_wine" /></div>
-                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/Lavande_en_Provence.jpg" alt="lavender" /></div>
-                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/colors.jpg" alt="lavender" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/swiss-riveria.png" alt="Swiss Riveria landscape painting" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/grecian-dreams.jpg" alt="Grecian Dreams artwork" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/california-wine.jpg" alt="California wine country painting" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/lavande-en-provence.jpg" alt="Lavande en Provence lavender fields" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/colors.jpg" alt="Abstract color composition" /></div>
             </div>
         </div>
     </div>
