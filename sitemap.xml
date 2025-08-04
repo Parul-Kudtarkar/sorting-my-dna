@@ -1,9 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <!-- Homepage -->
     <url>
         <loc>https://parulkudtarkar.com/</loc>
-        <lastmod>2024-07-29</lastmod>
-        <changefreq>monthly</changefreq>
+        <lastmod>2025-01-04</lastmod>
+        <changefreq>weekly</changefreq>
         <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://parulkudtarkar.com/images/headshot.jpg</image:loc>
+            <image:title>Parul Kudtarkar - AI and Genomics Researcher</image:title>
+            <image:caption>Harvard, Caltech and UCSD trained AI/genomics researcher specializing in diabetes and metabolic diseases</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Publications Page -->
+    <url>
+        <loc>https://parulkudtarkar.com/#publications</loc>
+        <lastmod>2025-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://parulkudtarkar.com/images/cover-image.jpg</image:loc>
+            <image:title>Cell Metabolism Journal Cover - T2D Knowledge Portal</image:title>
+            <image:caption>Published research on Type 2 Diabetes Knowledge Portal in Cell Metabolism journal</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Art Gallery Page -->
+    <url>
+        <loc>https://parulkudtarkar.com/#art</loc>
+        <lastmod>2025-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://parulkudtarkar.com/images/artworks/swiss-riveria.png</image:loc>
+            <image:title>Swiss Riviera Landscape Painting</image:title>
+            <image:caption>Original artwork by scientist-artist Parul Kudtarkar, exhibited at Armory Center for the Arts</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://parulkudtarkar.com/images/artworks/california-wine.jpg</image:loc>
+            <image:title>California Wine Country Painting</image:title>
+            <image:caption>Landscape painting exhibited at Caltech Art Gallery</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://parulkudtarkar.com/images/artworks/grecian-dreams.jpg</image:loc>
+            <image:title>Grecian Dreams Artwork</image:title>
+            <image:caption>Original painting exhibited at Caltech Art Gallery</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Key Research Projects -->
+    <url>
+        <loc>https://parulkudtarkar.com/#work-experience</loc>
+        <lastmod>2025-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Education Background -->
+    <url>
+        <loc>https://parulkudtarkar.com/#education</loc>
+        <lastmod>2025-01-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
     </url>
 </urlset> 

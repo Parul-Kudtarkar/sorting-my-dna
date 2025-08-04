@@ -14,26 +14,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>Parul Kudtarkar - AI & Genomics Researcher | UC San Diego</title>
-    <meta name="description" content="Parul Kudtarkar is a leading AI and genomics researcher at UC San Diego, specializing in metabolic diseases, bioinformatics, and drug discovery. 20+ years transforming biological data into medical breakthroughs.">
-    <meta name="keywords" content="Parul Kudtarkar, genomics researcher, bioinformatics, AI researcher, metabolic diseases, UC San Diego, drug discovery, bioinformatics platform, Common Metabolic Diseases Genome Atlas, PanKbase, Echinobase">
+    <title>Parul Kudtarkar - Leading AI & Genomics Researcher | 20+ Years Experience</title>
+    <meta name="description" content="Parul Kudtarkar: Harvard, Caltech & UCSD trained AI/genomics researcher. Led $12.5M NIH diabetes project, 15+ publications, pioneer in metabolic disease research & drug discovery.">
+    <meta name="keywords" content="Parul Kudtarkar, AI genomics researcher, bioinformatics expert, metabolic diseases specialist, diabetes research, Harvard Caltech UCSD, drug discovery, PanKbase, T2D Knowledge Portal, Common Metabolic Diseases Genome Atlas, NIH funding, machine learning biology">
     <meta name="author" content="Parul Kudtarkar">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    <meta name="geo.region" content="US-CA">
+    <meta name="geo.placename" content="San Diego">
+    <meta name="geo.position" content="32.715738;-117.161084">
+    <meta name="ICBM" content="32.715738, -117.161084">
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="profile">
     <meta property="og:url" content="https://parulkudtarkar.com/">
-    <meta property="og:title" content="Parul Kudtarkar - AI & Genomics Researcher">
-    <meta property="og:description" content="Leading AI and genomics researcher at UC San Diego, specializing in metabolic diseases and drug discovery. 20+ years transforming biological data into medical breakthroughs.">
+    <meta property="og:title" content="Parul Kudtarkar - Leading AI & Genomics Researcher">
+    <meta property="og:description" content="Harvard, Caltech & UCSD trained researcher. Led $12.5M NIH diabetes project, 15+ publications, transforming biological data into medical breakthroughs for 20+ years.">
     <meta property="og:image" content="https://parulkudtarkar.com/images/headshot.jpg">
-    <meta property="og:site_name" content="Parul Kudtarkar">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    <meta property="og:site_name" content="Parul Kudtarkar - AI & Genomics Research">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://parulkudtarkar.com/">
-    <meta property="twitter:title" content="Parul Kudtarkar - AI & Genomics Researcher">
-    <meta property="twitter:description" content="Leading AI and genomics researcher at UC San Diego, specializing in metabolic diseases and drug discovery.">
+    <meta property="twitter:title" content="Parul Kudtarkar - AI & Genomics Research Pioneer">
+    <meta property="twitter:description" content="Harvard/Caltech/UCSD researcher • $12.5M NIH diabetes project leader • 15+ publications • 20+ years transforming biological data into medical breakthroughs">
     <meta property="twitter:image" content="https://parulkudtarkar.com/images/headshot.jpg">
+    <meta property="twitter:creator" content="@ParulKudtarkar">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://parulkudtarkar.com/">
@@ -41,6 +50,9 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="images/headshot.jpg" as="image">
     <link rel="preload" href="images/cover-image.jpg" as="image">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -50,6 +62,19 @@
     
     <!-- Web App Manifest -->
     <link rel="manifest" href="/manifest.json">
+    
+    <!-- Additional SEO optimizations -->
+    <meta name="theme-color" content="#0071E3">
+    <meta name="msapplication-TileColor" content="#0071E3">
+    <meta name="application-name" content="Parul Kudtarkar - AI & Genomics Research">
+    <meta name="msapplication-tooltip" content="Leading AI and genomics researcher specializing in diabetes and metabolic diseases">
+    
+    <!-- Language and content targeting -->
+    <meta http-equiv="content-language" content="en-US">
+    <meta name="language" content="English">
+    
+    <!-- Performance hints -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
     
     <style>
         :root {
@@ -374,14 +399,36 @@
             display: flex;
         }
 
-        /* Hero Section */
+        /* Enhanced Hero Section */
         .hero {
-            min-height: 80vh;
+            min-height: 85vh;
             display: flex;
             align-items: center;
-            padding: 40px 0;
+            padding: 60px 0;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, 
+                var(--background) 0%, 
+                rgba(0, 113, 227, 0.03) 30%,
+                rgba(214, 191, 174, 0.02) 70%,
+                var(--background) 100%);
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, 
+                rgba(0, 113, 227, 0.08) 0%, 
+                transparent 50%),
+                radial-gradient(circle at 70% 80%, 
+                rgba(214, 191, 174, 0.06) 0%, 
+                transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* Animated DNA Helix Background */
@@ -541,11 +588,12 @@
 
         .hero-intro h1 {
             font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-            font-size: 36px;
-            font-weight: 600;
+            font-size: 42px;
+            font-weight: 700;
             line-height: 1.1;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: var(--text-primary);
+            letter-spacing: -1px;
         }
 
         /* Typewriter Animation for Tagline with Vibrant Animated Gradient */
@@ -686,28 +734,66 @@
 
         .hero-description {
             max-width: 800px;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-description p {
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 15px;
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 18px;
             color: var(--text-secondary);
+            font-weight: 400;
+        }
+        
+        .hero-description p:first-child {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-primary);
         }
 
-        /* Section Styling */
+        /* Section Styling with Subtle Gradients */
         .section {
-            padding: 30px 0;
+            padding: 50px 0;
+            position: relative;
             border-bottom: 1px solid var(--border);
+        }
+        
+        .section:nth-child(even) {
+            background: linear-gradient(135deg, 
+                var(--background) 0%, 
+                rgba(0, 113, 227, 0.02) 50%, 
+                var(--background) 100%);
+        }
+        
+        .section:nth-child(odd) {
+            background: linear-gradient(45deg, 
+                var(--background) 0%, 
+                rgba(214, 191, 174, 0.03) 50%, 
+                var(--background) 100%);
         }
 
         .section-title {
             font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 50px;
             text-align: center;
             color: var(--text-primary);
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-gold));
+            border-radius: 2px;
         }
 
         /* Work Experience with Liquid Glass */
@@ -754,10 +840,11 @@
         }
 
         .work-item h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
             color: var(--text-primary);
+            letter-spacing: -0.3px;
         }
 
         .work-dates {
@@ -827,10 +914,11 @@
         }
 
         .education-item h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
             color: var(--text-primary);
+            letter-spacing: -0.3px;
         }
 
         .education-item h4 {
@@ -903,18 +991,48 @@
             border-bottom: 1px solid var(--border);
             margin-bottom: 20px;
             border-radius: 12px;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
         .publication-item:last-child {
             border-bottom: none;
         }
+        
+        .publication-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 113, 227, 0.05), 
+                transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .publication-item:hover::before {
+            left: 100%;
+        }
+        
+        .publication-item:hover {
+            transform: translateY(-2px);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 25px var(--glass-shadow);
+        }
 
         .publication-item h3 {
-            font-size: 18px;
+            font-size: 19px;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             color: var(--text-primary);
+            line-height: 1.4;
         }
 
         .publication-authors {
@@ -1047,7 +1165,7 @@
             }
             .hero {
                 min-height: 70vh;
-                padding: 60px 0;
+                padding: 40px 0;
             }
 
             .mobile-menu-toggle {
@@ -1056,7 +1174,18 @@
                 justify-content: center;
             }
             .section-title {
-                font-size: 32px;
+                font-size: 28px;
+                margin-bottom: 40px;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .hero-description p {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
             }
 
             .education-grid {
@@ -1124,26 +1253,37 @@
         
         @media (max-width: 480px) {
             .hero-headshot {
-                width: 80px;
-                height: 80px;
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
             }
             .hero {
-                min-height: 50vh;
-                padding: 20px 0;
+                min-height: 60vh;
+                padding: 30px 0;
             }
             .hero-tagline {
-                font-size: 14px;
-                min-height: 30px;
+                font-size: 15px;
+                min-height: 35px;
             }
             .hero-intro h1 {
-                font-size: 28px;
+                font-size: 32px;
+                margin-bottom: 20px;
             }
             .hero-description p {
-                font-size: 14px;
+                font-size: 15px;
+                line-height: 1.7;
             }
             
             .cover-image {
-                max-width: 300px;
+                max-width: 320px;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+            
+            .section-title {
+                font-size: 24px;
             }
         }
 
@@ -1280,9 +1420,9 @@
 
             <div class="container">
                 <div class="hero-profile">
-                    <div class="hero-headshot"><img src="images/headshot.jpg" alt="Parul Kudtarkar - AI and Genomics Researcher" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" /></div>
+                    <div class="hero-headshot"><img src="images/headshot.jpg" alt="Parul Kudtarkar - Harvard Caltech UCSD AI genomics researcher diabetes expert" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" /></div>
                     <div class="hero-intro">
-                        <h1>Parul Kudtarkar</h1>
+                        <h1 itemProp="name">Parul Kudtarkar</h1>
                         <div class="hero-tagline">
                             <span class="typewriter" id="typewriter-text" role="text" aria-label="Transforming health through AI and genomics">Transforming health through AI and genomics.</span>
                         </div>
@@ -1317,9 +1457,9 @@
         <!-- Work Experience -->
         <section class="section">
             <div class="container">
-                <h2 class="section-title">Work Experience</h2>
+                <h2 class="section-title" id="work-experience">Work Experience</h2>
                 <div class="work-item liquid-glass-dynamic">
-                    <div class="work-logo"><img src="images/work/cmd.jpg" alt="Common Metabolic Diseases Genome Atlas logo" /></div>
+                    <div class="work-logo"><img src="images/work/cmd.jpg" alt="Common Metabolic Diseases Genome Atlas - NIH funded diabetes research platform" /></div>
                     <div class="work-content">
                         <h3>Common Metabolic Diseases</h3>
                         <div class="work-dates">June 2017 – Present</div>
@@ -1327,7 +1467,7 @@
                     </div>
                 </div>
                 <div class="work-item liquid-glass-dynamic">
-                    <div class="work-logo"><img src="images/work/pankbase.png" alt="PanKbase diabetes research platform logo" /></div>
+                    <div class="work-logo"><img src="images/work/pankbase.png" alt="PanKbase - $12.5M NIH diabetes research data library platform" /></div>
                     <div class="work-content">
                         <h3>PanKbase</h3>
                         <div class="work-dates">February 2024 – Present</div>
@@ -1335,7 +1475,7 @@
                     </div>
                 </div>
                 <div class="work-item liquid-glass-dynamic">
-                    <div class="work-logo"><img src="images/work/echinobase.png" alt="Echinobase gene regulation platform logo" /></div>
+                    <div class="work-logo"><img src="images/work/echinobase.png" alt="Echinobase - gene regulation and evolutionary genomics research platform" /></div>
                     <div class="work-content">
                         <h3>Echinobase</h3>
                         <div class="work-dates">January 2011 – June 2017</div>
@@ -1343,7 +1483,7 @@
                     </div>
                 </div>
                 <div class="work-item liquid-glass-dynamic">
-                    <div class="work-logo"><img src="images/work/cloud.png" alt="Cloud computing for comparative genomics logo" /></div>
+                    <div class="work-logo"><img src="images/work/cloud.png" alt="Cloud computing comparative genomics - 40% cost reduction bioinformatics" /></div>
                     <div class="work-content">
                         <h3>Cloud Computing for Comparative Genomics</h3>
                         <div class="work-dates">January 2008 – December 2010</div>
@@ -1356,10 +1496,10 @@
         <!-- Education -->
         <section class="section">
             <div class="container">
-                <h2 class="section-title">Education</h2>
+                <h2 class="section-title" id="education">Education</h2>
                 <div class="education-grid">
                     <div class="education-item liquid-glass-dynamic">
-                        <div class="education-logo"><img src="images/education/neu.png" alt="Northeastern University logo" /></div>
+                        <div class="education-logo"><img src="images/education/neu.png" alt="Northeastern University - Master of Science Bioinformatics degree" /></div>
                         <div class="education-content">
                             <h3>Master of Science, Bioinformatics</h3>
                             <h4>Northeastern University, USA</h4>
@@ -1368,7 +1508,7 @@
                         </div>
                     </div>
                     <div class="education-item liquid-glass-dynamic">
-                        <div class="education-logo"><img src="images/education/mu.png" alt="University of Mumbai logo" /></div>
+                        <div class="education-logo"><img src="images/education/mu.png" alt="University of Mumbai - Bachelor of Engineering Biomedical Engineering" /></div>
                         <div class="education-content">
                             <h3>Bachelor of Engineering, Biomedical Engineering</h3>
                             <h4>University of Mumbai, India</h4>
@@ -1377,7 +1517,7 @@
                         </div>
                     </div>
                     <div class="education-item liquid-glass-dynamic">
-                        <div class="education-logo"><img src="images/education/rady.png" alt="UC San Diego Rady School of Management logo" /></div>
+                        <div class="education-logo"><img src="images/education/rady.png" alt="UC San Diego Rady School - MBA Business Strategy Innovation" /></div>
                         <div class="education-content">
                             <h3>MBA Certification</h3>
                             <h4>Rady School of Management, UC San Diego</h4>
@@ -1391,7 +1531,7 @@
         <!-- Reviewing Experience -->
         <section class="section">
             <div class="container">
-                <h2 class="section-title">Reviewing Experience</h2>
+                <h2 class="section-title" id="reviewing-experience">Reviewing Experience</h2>
                 <div class="reviewing-grid">
                     <div class="reviewing-card liquid-glass-dynamic">
                         <h3>Editorial Board</h3>
@@ -1414,7 +1554,7 @@
     <div class="page" id="publications">
         <div class="container">
             <div class="publications-hero">
-                <img src="images/cover-image.jpg" class="cover-image" alt="Cell Metabolism Cover Image" />
+                <img src="images/cover-image.jpg" class="cover-image" alt="Cell Metabolism journal cover - T2D Knowledge Portal diabetes research breakthrough" />
                 <p style="font-size: 10px; color: var(--text-secondary); margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">The Cell Metabolism cover image that accompanies the article illustrates how the T2DKP integrates multiple types of genetic and genomic data to provide insights that can be the building blocks for new therapeutics.</p>
             </div>
 
@@ -1521,11 +1661,11 @@
             </div>
 
             <div class="gallery-grid">
-                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/swiss-riveria.png" alt="Swiss Riveria landscape painting" /></div>
-                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/grecian-dreams.jpg" alt="Grecian Dreams artwork" /></div>
-                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/california-wine.jpg" alt="California wine country painting" /></div>
-                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/lavande-en-provence.jpg" alt="Lavande en Provence lavender fields" /></div>
-                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/colors.jpg" alt="Abstract color composition" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/swiss-riveria.png" alt="Swiss Riviera landscape painting by Parul Kudtarkar - Armory Center Arts exhibition" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/grecian-dreams.jpg" alt="Grecian Dreams artwork by Parul Kudtarkar - Caltech Art Gallery exhibition" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/california-wine.jpg" alt="California wine country painting by Parul Kudtarkar - exhibited at Caltech" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/lavande-en-provence.jpg" alt="Lavande en Provence lavender fields painting by scientist artist Parul Kudtarkar" /></div>
+                <div class="gallery-item liquid-glass-dynamic"><img src="images/artworks/colors.jpg" alt="Abstract color composition painting by AI researcher artist Parul Kudtarkar" /></div>
             </div>
         </div>
     </div>
@@ -1769,57 +1909,108 @@
         });
     </script>
     
-    <!-- Structured Data for SEO -->
+    <!-- Enhanced Structured Data for SEO -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Parul Kudtarkar",
-        "jobTitle": "AI & Genomics Researcher",
+        "jobTitle": "Lead AI & Genomics Researcher",
         "worksFor": {
             "@type": "Organization",
-            "name": "UC San Diego"
+            "name": "UC San Diego",
+            "url": "https://ucsd.edu"
         },
-        "description": "Leading AI and genomics researcher specializing in metabolic diseases, bioinformatics, and drug discovery",
+        "description": "Leading AI and genomics researcher with 20+ years experience, specializing in metabolic diseases, diabetes research, bioinformatics, and drug discovery. Led $12.5M NIH-funded projects.",
         "url": "https://parulkudtarkar.com",
         "image": "https://parulkudtarkar.com/images/headshot.jpg",
+        "email": "mailto:contact@parulkudtarkar.com",
         "sameAs": [
             "https://www.linkedin.com/in/parulkudtarkar",
             "https://scholar.google.com/citations?user=mJwZw2kAAAAJ&hl=en",
-            "https://github.com/Parul-Kudtarkar"
+            "https://github.com/Parul-Kudtarkar",
+            "https://orcid.org/0000-0000-0000-0000"
         ],
         "knowsAbout": [
-            "Bioinformatics",
+            "Artificial Intelligence",
+            "Machine Learning",
+            "Bioinformatics", 
             "Genomics",
-            "AI Research",
             "Metabolic Diseases",
+            "Diabetes Research",
             "Drug Discovery",
             "Comparative Genomics",
-            "Cloud Computing"
+            "Cloud Computing",
+            "Data Science",
+            "Biomedical Engineering",
+            "NIH Grant Management"
         ],
         "alumniOf": [
             {
                 "@type": "Organization",
-                "name": "Harvard University"
+                "name": "Harvard University",
+                "url": "https://harvard.edu"
             },
             {
                 "@type": "Organization", 
-                "name": "Caltech"
+                "name": "California Institute of Technology",
+                "alternateName": "Caltech",
+                "url": "https://caltech.edu"
             },
             {
                 "@type": "Organization",
-                "name": "Northeastern University"
+                "name": "Northeastern University",
+                "url": "https://northeastern.edu"
             },
             {
                 "@type": "Organization",
-                "name": "University of Mumbai"
+                "name": "University of Mumbai",
+                "url": "https://mu.ac.in"
             }
         ],
         "hasOccupation": {
             "@type": "Occupation",
             "name": "Bioinformatics Researcher",
-            "description": "20+ years transforming biological data into medical breakthroughs"
-        }
+            "description": "20+ years transforming biological data into medical breakthroughs",
+            "occupationLocation": {
+                "@type": "Place",
+                "name": "San Diego, CA"
+            }
+        },
+        "award": [
+            "NIH Funding - $12.5M PanKbase Project",
+            "Multiple Peer-Reviewed Publications",
+            "Editorial Board - Database Journal"
+        ],
+        "hasCredential": [
+            {
+                "@type": "EducationalOccupationalCredential",
+                "name": "Master of Science in Bioinformatics",
+                "educationalLevel": "Master's Degree",
+                "recognizedBy": {
+                    "@type": "Organization",
+                    "name": "Northeastern University"
+                }
+            },
+            {
+                "@type": "EducationalOccupationalCredential", 
+                "name": "Bachelor of Engineering in Biomedical Engineering",
+                "educationalLevel": "Bachelor's Degree",
+                "recognizedBy": {
+                    "@type": "Organization",
+                    "name": "University of Mumbai"
+                }
+            },
+            {
+                "@type": "EducationalOccupationalCredential",
+                "name": "MBA Certification",
+                "educationalLevel": "MBA",
+                "recognizedBy": {
+                    "@type": "Organization",
+                    "name": "UC San Diego Rady School of Management"
+                }
+            }
+        ]
     }
     </script>
 </body>
