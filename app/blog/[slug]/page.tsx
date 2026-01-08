@@ -193,7 +193,7 @@ function formatContent(content: string): string {
     if (line.startsWith('```')) {
       if (inCodeBlock) {
         // End of code block
-        result.push(`<pre class="bg-muted p-4 rounded-lg overflow-x-auto mb-4"><code class="text-sm font-mono">${codeBlockContent.join('\n').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`)
+        result.push(`<pre class="bg-muted p-3 rounded-lg overflow-x-auto mb-2"><code class="text-sm font-mono leading-tight">${codeBlockContent.join('\n').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`)
         codeBlockContent = []
         inCodeBlock = false
         codeBlockLanguage = ''

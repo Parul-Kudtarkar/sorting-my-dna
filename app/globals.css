@@ -292,11 +292,11 @@
 }
 
 .blog-content pre {
-  @apply bg-muted p-4 rounded-lg overflow-x-auto mb-4;
+  @apply bg-muted p-3 rounded-lg overflow-x-auto mb-2;
 }
 
 .blog-content pre code {
-  @apply bg-transparent p-0;
+  @apply bg-transparent p-0 leading-tight;
 }
 
 .blog-content blockquote {
