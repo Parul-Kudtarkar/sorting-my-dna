@@ -9,7 +9,7 @@ import { format } from "date-fns"
 
 export const metadata = {
   title: 'Blog | Parul Kudtarkar',
-  description: 'Insights about AI, genomics, and research from Parul Kudtarkar',
+  description: 'Insights about AI, disease etiology and cure',
 }
 
 export default function BlogPage() {
@@ -25,7 +25,7 @@ export default function BlogPage() {
         <div className="mb-12 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Blog</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Insights about AI, genomics, and research. Sharing learnings and discoveries from my work in metabolic disease research and drug discovery.
+            Insights about AI, disease etiology and cure
           </p>
         </div>
 

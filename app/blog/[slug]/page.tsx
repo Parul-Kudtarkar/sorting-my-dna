@@ -72,17 +72,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </Button>
         </Link>
 
-        {/* Featured Image */}
-        {post.image && (
-          <div className="mb-8 rounded-lg overflow-hidden">
-            <img
-              src={post.image}
-              alt={post.title}
-              className="w-full h-auto object-cover"
-            />
-          </div>
-        )}
-
         {/* Article Header */}
         <header className="mb-8">
           <div className="flex items-center gap-2 mb-4 flex-wrap">
@@ -130,6 +119,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           )}
         </header>
 
+        {/* Featured Image */}
+        {post.image && (
+          <div className="mb-8 rounded-lg overflow-hidden">
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        )}
+
         {/* Article Content */}
         <div className="prose prose-lg dark:prose-invert max-w-none">
           <div 
@@ -156,6 +156,30 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 // Simple markdown-like formatting function
 // In production, you might want to use a proper markdown parser like 'remark' or 'markdown-it'
 function formatContent(content: string): string {
+  // Helper function to process inline markdown formatting
+  function processInlineMarkdown(text: string): string {
+    let processed = text
+    // Remove escaped markdown first (e.g., \*\* becomes **)
+    processed = processed.replace(/\\\*/g, '*')
+    processed = processed.replace(/\\\[/g, '[')
+    processed = processed.replace(/\\\]/g, ']')
+    processed = processed.replace(/\\\(/g, '(')
+    processed = processed.replace(/\\\)/g, ')')
+    processed = processed.replace(/\\`/g, '`')
+    
+    // Process bold (**text**)
+    processed = processed.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    // Process italic (*text* or _text_) - but not if it's part of bold
+    processed = processed.replace(/(?<!\*)\*([^*\n]+?)\*(?!\*)/g, '<em>$1</em>')
+    processed = processed.replace(/(?<!_)_([^_\n]+?)_(?!_)/g, '<em>$1</em>')
+    // Process links [text](url)
+    processed = processed.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-primary hover:underline">$1</a>')
+    // Process inline code `code`
+    processed = processed.replace(/`([^`]+)`/g, '<code class="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
+    
+    return processed
+  }
+
   const lines = content.split('\n')
   const result: string[] = []
   let inCodeBlock = false
@@ -186,40 +210,69 @@ function formatContent(content: string): string {
       continue
     }
 
-    // Headers
+    // Headers - process markdown inside headers too
     if (line.startsWith('# ')) {
-      result.push(`<h1 class="text-3xl font-bold mt-8 mb-4">${line.substring(2)}</h1>`)
+      const headerText = processInlineMarkdown(line.substring(2))
+      result.push(`<h1 class="text-3xl font-bold mt-6 mb-3">${headerText}</h1>`)
       continue
     }
     if (line.startsWith('## ')) {
-      result.push(`<h2 class="text-2xl font-semibold mt-6 mb-3">${line.substring(3)}</h2>`)
+      const headerText = processInlineMarkdown(line.substring(3))
+      result.push(`<h2 class="text-2xl font-semibold mt-5 mb-2">${headerText}</h2>`)
       continue
     }
     if (line.startsWith('### ')) {
-      result.push(`<h3 class="text-xl font-semibold mt-4 mb-2">${line.substring(4)}</h3>`)
+      const headerText = processInlineMarkdown(line.substring(4))
+      result.push(`<h3 class="text-xl font-semibold mt-4 mb-2">${headerText}</h3>`)
+      continue
+    }
+    if (line.startsWith('#### ')) {
+      const headerText = processInlineMarkdown(line.substring(5))
+      result.push(`<h4 class="text-lg font-semibold mt-3 mb-1">${headerText}</h4>`)
       continue
     }
     
-    // Empty lines
+    // List items
+    if (line.trim().startsWith('- ') || line.trim().startsWith('* ')) {
+      const listText = processInlineMarkdown(line.trim().substring(2))
+      result.push(`<li class="mb-1">${listText}</li>`)
+      continue
+    }
+    
+    // Empty lines - skip them to reduce spacing
     if (line.trim() === '') {
-      result.push('<br />')
       continue
     }
 
-    // Process inline formatting
-    let processedLine = line
-    // Bold
-    processedLine = processedLine.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    // Italic (but not if it's part of bold)
-    processedLine = processedLine.replace(/(?<!\*)\*([^*]+?)\*(?!\*)/g, '<em>$1</em>')
-    // Links
-    processedLine = processedLine.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-primary hover:underline">$1</a>')
-    // Inline code
-    processedLine = processedLine.replace(/`([^`]+)`/g, '<code class="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
-    
-    result.push(`<p class="mb-4 leading-7">${processedLine}</p>`)
+    // Regular paragraphs - process inline markdown
+    const processedLine = processInlineMarkdown(line)
+    result.push(`<p class="mb-2 leading-7">${processedLine}</p>`)
   }
 
-  return result.join('\n')
+  // Wrap consecutive list items in <ul> tags
+  let finalResult: string[] = []
+  let inList = false
+  
+  for (let i = 0; i < result.length; i++) {
+    if (result[i].startsWith('<li')) {
+      if (!inList) {
+        finalResult.push('<ul class="mb-3 ml-6 list-disc">')
+        inList = true
+      }
+      finalResult.push(result[i])
+    } else {
+      if (inList) {
+        finalResult.push('</ul>')
+        inList = false
+      }
+      finalResult.push(result[i])
+    }
+  }
+  
+  if (inList) {
+    finalResult.push('</ul>')
+  }
+
+  return finalResult.join('\n')
 }
 

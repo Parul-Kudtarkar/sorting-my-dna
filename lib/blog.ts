@@ -18,13 +18,12 @@ export const blogPosts: BlogPost[] = [
     slug: "essential-toolkit-building-ai-agents-2026",
     title: "The Essential Toolkit for Building AI Agents in 2026",
     description: "What I learned building agents for the past two years. A practical guide to the frameworks, tools, and patterns that actually work.",
-    date: "2026-01-8",
+    date: "2026-01-08",
     author: "Parul Kudtarkar",
     category: "AI",
     tags: ["AI", "LangChain", "LangGraph", "Machine Learning", "Development"],
     image: "/ai_agent_toolkit.webp",
-    content: `# **The Essential Toolkit for Building AI Agents in 2026**
-
+    content: `
 **What I learned building agents for the past two years**
 
 Two years ago, a friend introduced me to LangChain. I was immediately hooked; here was a framework that let LLMs do things they couldn't do on their own. Live web search. Calling external tools. Querying databases. Back then, LLMs were just text completion engines. LangChain opened up a whole new world of possibilities.
@@ -331,7 +330,7 @@ Start simple. Build something that works. Get it in front of users. Learn what b
     slug: "welcome-to-my-blog",
     title: "Welcome to My Blog",
     description: "I'm excited to share insights about AI, genomics, and research. This is the beginning of a journey to document my learnings and discoveries.",
-    date: "2026-01-8",
+    date: "2026-01-08",
     author: "Parul Kudtarkar",
     category: "General",
     tags: ["AI", "Research"],
